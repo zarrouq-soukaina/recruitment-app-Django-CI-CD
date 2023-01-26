@@ -1,0 +1,54 @@
+{% load widget_tweaks %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss@2.2.4/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="h-auto overflow-hidden flex items-start justify-center" style="background: #a2a4a7;">
+    <div class="min-h-screen bg-black flex justify-center items-center">
+
+  <div class="absolute w-60 h-60 rounded-xl bg-black -top-5 -left-16 z-0 transform rotate-45 hidden md:block"></div>
+  <div class="absolute w-48 h-48 rounded-xl bg-black -bottom-6 -right-10 transform rotate-12 hidden md:block"></div>
+<!--formulaire-->
+  <div class="py-0 px-20 bg-white rounded-2xl shadow-xl ">
+    
+
+    <div class="space-y-4">
+
+      <br>
+
+      <form action="{% url 'candidate_register' %}" method="POST" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+           {% for field in form.visible_fields %}
+             <div class="form-group">
+                 {{ field.label_tag }}
+                    {% render_field field class="form-control" %}
+                      {% for error in field.errors %}
+                        <span style="color:rgb(224, 51, 51)">{{ error }}</span>
+                      {% endfor %}
+           {% endfor %}
+           <br>
+           
+           <input type="submit" value="Register" class="py-3 w-64 text-xl text-white bg-black rounded-2xl" />
+             </div>
+      </form>
+      
+    </div>
+
+    <div class="text-center mt-6">
+      
+      <p class="mt-4 text-sm">Do you have already an account? <a href="{% url 'login' %}" class="underline font-semibold"><span class="underline cursor-pointer"> Log in !</span></a></p>
+    
+    <br>
+    <br>
+
+    </div>
+  </div>
+  <div class="w-40 h-40 absolute bg-black rounded-full top-0 right-12 hidden md:block"></div>
+  <div class="w-20 h-40 absolute bg-black rounded-full bottom-20 left-10 transform rotate-45 hidden md:block"></div>
+</div>
+</body>
+</html>

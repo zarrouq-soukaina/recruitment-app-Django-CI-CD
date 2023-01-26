@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}{{ title }}{% endblock %}</title>
+
+	<meta charset="utf-8"/>
+
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+	<script type="text/javascript" src="/static/js/dev-vue.js"></script>
+	{% block css %} {% endblock %}
+
+	{% block js %}{% endblock %}
+</head>
+<body class="h-screen overflow-auto flex items-center justify-center" style="background: #edf2f7;">
+	<!-- Image and text -->
+	<nav class="navbar navbar-light">
+	  <a class="navbar-brand" >
+	    
+	    
+		<div class="text-black font-medium text-2xl flex items-between">
+			<span class="w-6 h-6 rounded-full bg-blue-500 ml-4 mr-4"></span> MiFactory
+		</div>
+	  </a>
+
+	  <div class="lg:w-screen inline-flex lg:justify-end mr-4 -ml-48 lg:-ml-48">
+
+				
+
+				
+		<a href="{% url 'candidate' %}" class="block mx-4 font-medium text-white hover:text-white transition duration-200">Home</a>
+	   
+		<a href="{% url 'logout' %}" class="block font-medium text-white hover:text-white transition duration-200">Logout</a>
+
+
+	</div>
+	</nav>
+
+	
+
+	{% block content %}{% endblock %}
+</body>
+</html>

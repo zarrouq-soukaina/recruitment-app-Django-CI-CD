@@ -1,0 +1,239 @@
+{% if user.is_authenticated%}
+{% load hitcount_tags %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://tailwindcomponents.com/css/component.dashboard-template.css" rel="stylesheet">
+</head>
+<body class="h-screen overflow-auto flex items-center justify-center" style="background: #edf2f7;">
+
+  
+    <div>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    
+    <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
+        <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
+    
+        <div class="flex-1 flex flex-col overflow-auto">
+            <header class="flex justify-end items-end py-4 px-20 bg-white border-b-4 border-blue-600">
+              <div class="text-black font-medium text-2xl flex items-between">
+                <span class="w-6 h-6 rounded-full bg-blue-500 ml-4 mr-4"></span> MiFactory
+            </div>
+                    <div class="lg:w-screen inline-flex lg:justify-end mr-4 -ml-48 lg:-ml-48">
+
+                      
+
+                      <a href="{% url 'notifications' %}"  class="block mx-4 font-medium text-blue-600 hover:text-blue-900 transition duration-200">Notifications ({{ notifications.count }})</a>
+                        <a href="{% url 'adminProj' %}" class="block mx-4 font-medium text-blue-600 hover:text-blue-900 transition duration-200">Home</a>
+               
+                        <a href="{% url 'logout' %}" class="block font-medium text-blue-600 hover:text-blue-900 transition duration-200">Logout</a>
+			  
+			
+                    </div>
+                
+            </header>
+            <main class="flex-1 overflow-x-auto overflow-y-auto bg-gray-200">
+                <div class="container mx-auto px-20 py-2">
+
+                  <br>
+                  <h3 class="text-blue-700 text-3xl font-medium">Offers</h3>
+                    
+
+                    
+
+                    <br>
+    
+                    <div class="mt-8">
+    
+                    </div>
+    
+                    <div class="flex flex-col mt-8">
+                        <div class="-my-2 py-2 overflow-x-auto sm:-mx-2 sm:px-2 lg:-mx-36 lg:px-2">
+                            <div
+                                class="align-middle inline-block min-w-full shadow overflow-auto sm:rounded-lg border-b border-gray-200">
+                                <table class="min-w-full">
+                                                                       
+                                    <thead>
+                                        <tr>
+                                          <th
+                                          class="px-12 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                          Views</th>
+                                            
+                                            <th
+                                                class="px-12 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                Context</th>
+                                            <th
+                                                class="px-12 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                Offer Date</th>
+                                            <th
+                                                class="px-12 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                category</th>
+                                            <th
+                                                class="px-12 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                Mode</th>
+
+                                            <th
+                                                class="px-12 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                Skills</th>    
+
+
+                                            <th
+                                            class="px-12 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                            Start date</th>  
+                                            
+                                            <th
+                                            class="px-12 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                            End date</th>
+
+                                            <th
+                                            class="px-12 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                            Status</th>  
+
+                                            <th
+                                            class="px-12 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                            Descriptive</th> 
+
+                                            <th class="px-12 py-3 border-b border-gray-200 bg-gray-50">Actions</th>
+                                        </tr>
+                                    </thead>
+    
+                                    <tbody class="bg-white">
+                                      {% for i in offers %}
+                                        <tr>
+                                          <td class="px-8 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-900">{% get_hit_count for i %}</div>
+                                            
+                                        </td>  
+    
+                                            <td class="px-8 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                <div class="text-sm leading-5 text-gray-900">{{i.context}}</div>
+                                                
+                                            </td>
+
+                                                <td class="px-8 py-4 whitespace-no-wrap border-b border-gray-200">
+                                              <div class="text-sm leading-5 text-gray-900">{{i.offerDate}}</div>
+                                              
+                                          </td>
+                                          
+                                                <td class="px-8 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                <div class="text-sm leading-5 text-gray-900">{{i.category}}</div>
+                                                
+                                            </td>
+
+                                            <td class="px-8 py-4 whitespace-no-wrap border-b border-gray-200">
+                                              <div class="text-sm leading-5 text-gray-900">{{i.mode}}</div>
+                                              
+                                          </td>
+
+                                          <td class="px-8 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-900">{{i.skills}}</div>
+                                            
+                                        </td>
+
+                                        <td class="px-8 py-4 whitespace-no-wrap border-b border-gray-200">
+                                          <div class="text-sm leading-5 text-gray-900">{{i.start}}</div>
+                                          
+                                      </td>
+                                      
+
+                                      <td class="px-8 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-900">{{i.end}}</div>
+                                        
+                                    </td>
+
+                                    <td class="px-8 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{i.is_closed}}</span>
+                                    </td> 
+                                    
+                                    
+                                    <td class="px-8 py-4 whitespace-no-wrap border-b border-gray-200">
+                                      
+
+                                      {% if i.descriptive %}
+                                      
+                                      <span
+                                   class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"><a href="{% url 'download' i.id %}" rel="external nofollow">  download </a> </span>
+                                      {% else %}
+                                      <span class="text-muted">No file </span>
+                                      {% endif %}
+                                      
+                                    </td>
+    
+                                      <td class="px-8 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+
+                                        <div class="flex item-center justify-center">
+
+                                          <div class="flex mb-4 items-center">
+                                            <a href="{% url 'offerview' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-10" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                                                </svg>
+                                              </button></a>
+                                            </div>
+
+                                            <div class="flex mb-4 items-center">
+                                              <a href="{% url 'update_offer' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                                </button></a>
+                                              
+                                            </div>
+
+                                          <div class="flex mb-4 items-center">
+                                            <a href="{% url 'offersCandidate' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-7" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                </svg>
+                                              </button></a>
+                                          </div>
+                                          
+                                          <div class="flex mb-4 items-center">
+                                            <a href="{% url 'deactivate_offer' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z" />
+                                              </svg>
+                                              </button></a>
+                                                
+                                          </div>
+                  
+                  
+                                          <div class="flex mb-4 items-center">
+                                            <a href="{% url 'close_offer' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-7" viewBox="0 0 20 20" fill="currentColor">
+                                              <path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd" />
+                                              </svg>
+                                              </button></a>
+                                                
+                                          </div>
+                  
+                                          
+                              
+                              
+                                                  </div>
+                                          </td>
+                                      
+                                        </tr>
+                                        {% endfor %}  
+                                        
+                                    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endif %}

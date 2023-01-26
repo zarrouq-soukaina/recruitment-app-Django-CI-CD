@@ -1,0 +1,229 @@
+{% load widget_tweaks %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss@2.2.4/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="h-screen overflow-hidden flex items-stretch justify-center" style="background: #bbd0ff;">
+    <style>
+/*remove custom style*/
+  .circles{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+  .circles li{
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(185, 221, 255, 0.993);
+    animation: animate 25s linear infinite;
+    bottom: -150px;  
+}
+.circles li:nth-child(1){
+    left: 25%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+ 
+ 
+.circles li:nth-child(2){
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+}
+ 
+.circles li:nth-child(3){
+    left: 70%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 4s;
+}
+ 
+.circles li:nth-child(4){
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+ 
+.circles li:nth-child(5){
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+}
+ 
+.circles li:nth-child(6){
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+}
+ 
+.circles li:nth-child(7){
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+}
+ 
+.circles li:nth-child(8){
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+}
+ 
+.circles li:nth-child(9){
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+}
+ 
+.circles li:nth-child(10){
+    left: 85%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+}
+  @keyframes animate {
+ 
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+ 
+    100%{
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+ 
+}
+</style>
+<div class="relative min-h-screen flex ">
+    <div class="flex flex-col sm:flex-row items-start justify-start flex-auto min-w-0 bg-transparent ">
+      <div class="sm:w-1/4 xl:w-3/4 h-screen hidden md:flex flex-auto items-center justify-center p-10 overflow-hidden bg-gray-900 text-black bg-no-repeat  bg-cover relative"
+      style="background-image: url(https://i.pinimg.com/originals/a9/98/0b/a9980b9da9c0735a548c22bd8d7fc57d.jpg);">
+      <div class="absolute bg-gradient-to-b from-blue-200  to-blue-300 opacity-75 inset-0 z-0"></div>
+      <div class="w-screen  max-w-md z-10">
+        <div class="text-8xl font-bold leading-tight mb-6">MiFactory. </div>
+        <br>
+        <br>
+        <div class="text-3xl  text-black font-medium italic"> Work with many teams on interesting projects !</div>
+      </div>
+        
+        <!---remove custom style-->
+       <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+   </ul>
+      </div>
+      <div class="md:flex md:items-center md:justify-center w-screen sm:w-auto md:h-full w-2/5 xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none bg-transparent">
+        <div class="max-w-5xl w-screen space-y-8">
+          <div class="text-start">
+            <h2 class="mt-6 text-4xl font-bold text-gray-900">
+              Registration for admins
+            </h2>
+            <br>
+            
+            
+            <div class="flex items-center justify-start space-x-2"><span class="h-px w-16 bg-blue-700"></span>
+                <span class="text-blue-700 font-normal">   Please insert your information : </span>
+                <span class="h-px w-16 bg-blue-700"></span></div>
+                
+              
+          </div>
+          
+          <div class="flex items-center justify-center space-x-2">
+            
+            
+            
+          </div>
+          <form class="mt-8 space-y-6" action="#" method="POST">
+            <input type="hidden" name="remember" value="true">
+
+
+
+            <div class="card-body">
+              <form action="{% url 'admin_register' %}" method="POST" novalidate>
+                {% csrf_token %}
+                   {% for field in form.visible_fields %}
+                     <div class="form-group">
+                         {{ field.label_tag }}
+                         <br>
+                            {% render_field field class="form-control" %}
+                              {% if messages%}
+                                {% for message in messages %}
+                                    {%if "admin_register" in message.tags %}
+                                      <span style="color:rgb(119, 0, 255)">{{ message }}</span>
+                                    {%endif%}
+                                {% endfor %}
+                               {% endif %}
+                   {% endfor %}
+                   <br> 
+                   <br> 
+                   <button type="submit" class="w-full flex justify-center bg-gradient-to-r from-blue-800 to-blue-900  hover:bg-gradient-to-l hover:from-blue-400 hover:to-blue-900 text-blue-50 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+                    sign up!
+                    </button>  
+                     </div>
+              </form>
+           </div>
+
+
+
+            <div class="flex items-center justify-between">
+
+              
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+             
+            </div>
+            
+
+            
+           
+
+            <p class="sm:text-lg xl:text-xl font-normal leading-none mb-6">
+              <span>you already have an account please </span>
+              <a href="{% url 'login' %}"
+                class="text-blue-700 hover:text-blue-900 no-underline hover:underline cursor-pointer transition ease-in duration-300">sign in</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

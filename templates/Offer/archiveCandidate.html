@@ -1,0 +1,217 @@
+{% if user.is_authenticated%}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://tailwindcomponents.com/css/component.dashboard-template.css" rel="stylesheet">
+</head>
+<body class="h-screen overflow-auto flex items-center justify-center" style="background: #edf2f7;">
+    <div>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    
+    <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
+        <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
+    
+        <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed z-30 inset-y-0 left-0 w-54 transition duration-300 transform bg-black overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
+            <div class="flex items-center justify-center mt-8">
+                <div class="flex items-center">
+                    
+                    
+                    
+                </div>
+            </div>
+    
+            <nav class="mt-10">
+                
+
+
+                
+                
+                
+                
+    
+                
+    
+                
+            </nav>
+        </div>
+        <div class="flex-1 flex flex-col overflow-hidden">
+            
+
+            <header class="flex justify-end items-end py-4 px-20 bg-white border-b-4 border-blue-600">
+                <div class="text-black font-medium text-2xl flex items-between">
+                  <span class="w-6 h-6 rounded-full bg-blue-500 ml-4 mr-4"></span> MiFactory
+              </div>
+                      <div class="lg:w-screen inline-flex lg:justify-end mr-4 -ml-48 lg:-ml-48">
+  
+                        
+  
+                        
+                          <a href="{% url 'candidate' %}" class="block mx-4 font-medium text-blue-600 hover:text-blue-900 transition duration-200">Home</a>
+                          
+                          <a href="{% url 'logout' %}" class="block font-medium text-blue-600 hover:text-blue-900 transition duration-200">Logout</a>
+                
+              
+                      </div>
+                  
+              </header>
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+                <div class="container mx-auto px-20 py-2">
+
+                  <br>
+
+                 
+                
+                 
+
+
+                    
+
+                   
+
+
+
+
+                    <br>
+
+                 
+                
+                    
+                  
+
+
+                    <br>
+                  
+                    <br>
+                    
+
+                    <div class="mt-8">
+    
+                    </div>
+                    <h3 class="text-blue-700 text-3xl font-medium">rejected applications </h3>
+                    {% for offer in offerefus %}
+                          <div class="bg-gray-100 mx-auto border-gray-500 border rounded-sm  text-gray-700 mb-0.5">
+                            <div class="flex p-3  border-l-8 border-green-600">
+                               <div class="space-y-1 border-r-2 pr-3">
+                                  <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> Start:</span> {{offer.ofr.start}}</div>
+                                  <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500 pr"> End:</span>  {{offer.ofr.end}}</div>
+                                  <div class="text-sm leading-5 font-semibold">{{offer.ofr.offerDate}}</div>
+                               </div>
+                              
+                               <div class="flex-1">
+                                  <div class="ml-3 space-y-1 border-r-2 pr-3">
+                                     <div class="text-base leading-6 font-normal">{{offer.ofr.type}}</div>
+                                     <div class="text-base leading-6 font-normal"> {{offer.ofr.title}}</div>
+
+                                     <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> category:</span>{{offer.ofr.category}}</div>
+                                     <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Skills:</span>{{offer.ofr.skills}}</div>
+                                     <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Context:</span> {{offer.ofr.context}}</div>
+                                  </div>
+                               </div>
+                               <div class="border-r-2 pr-3">
+                                  <div >
+                                     <div class="ml-3 my-3 border-gray-200 border-2 bg-gray-300 p-1">
+                                        <div class="uppercase text-xs leading-4 font-medium">Salary (DH):</div>
+                                        <div class="text-center text-sm leading-4 font-semibold text-gray-800">{{offer.ofr.salary}}</div>
+                                     </div>
+                                  </div>
+                               </div>
+                               
+                              
+                            </div>
+                        
+                    </div>
+                    
+                    {% endfor %}
+                    
+                  
+
+
+                    <br>
+                  
+                    <br>
+                    
+
+                    
+                    <h3 class="text-blue-700 text-3xl font-medium">accepted applications </h3>
+                    {% for offer in accept %}
+                          <div class="bg-gray-100 mx-auto border-gray-500 border rounded-sm  text-gray-700 mb-0.5">
+                            <div class="flex p-3  border-l-8 border-green-600">
+                               <div class="space-y-1 border-r-2 pr-3">
+                                  <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> Start:</span> {{offer.offerT.start}}</div>
+                                  <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500 pr"> End:</span>  {{offer.offerT.end}}</div>
+                                  <div class="text-sm leading-5 font-semibold">{{offer.offerT.offerDate}}</div>
+                               </div>
+                              
+                               <div class="flex-1">
+                                  <div class="ml-3 space-y-1 border-r-2 pr-3">
+                                     <div class="text-base leading-6 font-normal">{{offer.offerT.type}}</div>
+                                     <div class="text-base leading-6 font-normal"> {{offer.offerT.title}}</div>
+
+                                     <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> category:</span>{{offer.offerT.category}}</div>
+                                     <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Skills:</span>{{offer.offerT.skills}}</div>
+                                     <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Context:</span> {{offer.offerT.context}}</div>
+                                  </div>
+                               </div>
+                               <div class="border-r-2 pr-3">
+                                  <div >
+                                     <div class="ml-3 my-3 border-gray-200 border-2 bg-gray-300 p-1">
+                                        <div class="uppercase text-xs leading-4 font-medium">Salary (DH):</div>
+                                        <div class="text-center text-sm leading-4 font-semibold text-gray-800">{{offer.offerT.salary}}</div>
+                                     </div>
+                                  </div>
+                               </div>
+                               
+                              
+                            </div>
+                         </div>
+                         {% endfor %}
+                    <h3 class="text-blue-700 text-3xl font-medium">all my applications</h3>
+    
+
+
+                
+                    {% for offer in offerca %}
+
+                   
+                          <div class="bg-gray-100 mx-auto border-gray-500 border rounded-sm  text-gray-700 mb-0.5">
+                            <div class="flex p-3  border-l-8 border-green-600">
+                               <div class="space-y-1 border-r-2 pr-3">
+                                  <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> Start:</span> {{offer.ofr.start}}</div>
+                                  <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500 pr"> End:</span>  {{offer.ofr.end}}</div>
+                                  <div class="text-sm leading-5 font-semibold">{{offer.ofr.offerDate}}</div>
+                               </div>
+                              
+                               <div class="flex-1">
+                                  <div class="ml-3 space-y-1 border-r-2 pr-3">
+                                     <div class="text-base leading-6 font-normal">{{offer.ofr.type}}</div>
+                                     <div class="text-base leading-6 font-normal"> {{offer.ofr.title}}</div>
+
+                                     <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> category:</span>{{offer.ofr.category}}</div>
+                                     <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Skills:</span>{{offer.ofr.skills}}</div>
+                                     <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Context:</span> {{offer.ofr.context}}</div>
+                                  </div>
+                               </div>
+                               <div class="border-r-2 pr-3">
+                                  <div >
+                                     <div class="ml-3 my-3 border-gray-200 border-2 bg-gray-300 p-1">
+                                        <div class="uppercase text-xs leading-4 font-medium">Salary (DH):</div>
+                                        <div class="text-center text-sm leading-4 font-semibold text-gray-800">{{offer.ofr.salary}}</div>
+                                     </div>
+                                  </div>
+                               </div>
+                             
+                              
+                            </div>
+                         </div>
+                         {% endfor %}
+                  
+            </main>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endif %}

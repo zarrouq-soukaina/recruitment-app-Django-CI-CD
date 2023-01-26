@@ -1,0 +1,18 @@
+{% if user.is_authenticated%}
+{% load static %}
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+
+
+			<p>            'You already applied for the Job!'</p>
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+{% endif %} 

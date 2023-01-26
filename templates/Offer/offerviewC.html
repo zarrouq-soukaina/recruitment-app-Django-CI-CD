@@ -1,0 +1,178 @@
+{% if user.is_authenticated%}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://tailwindcomponents.com/css/component.dashboard-template.css" rel="stylesheet">
+</head>
+<body class="h-screen overflow-auto flex items-center justify-center" style="background: #edf2f7;">
+    <div>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    
+    <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
+        <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
+    
+        <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed z-30 inset-y-0 left-0 w-54 transition duration-300 transform bg-black overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
+            <div class="flex items-center justify-center mt-8">
+                <div class="flex items-center">
+                    
+                    
+                    
+                </div>
+            </div>
+    
+            <nav class="mt-10">
+                
+
+
+                
+                
+                
+                
+    
+                
+    
+                
+            </nav>
+        </div>
+        <div class="flex-1 flex flex-col overflow-hidden">
+            
+
+            <header class="flex justify-end items-end py-4 px-20 bg-white border-b-4 border-blue-600">
+                <div class="text-black font-medium text-2xl flex items-between">
+                  <span class="w-6 h-6 rounded-full bg-blue-500 ml-4 mr-4"></span> MiFactory
+              </div>
+                      <div class="lg:w-screen inline-flex lg:justify-end mr-4 -ml-48 lg:-ml-48">
+  
+                        
+  
+                        
+                          <a href="{% url 'candidate' %}" class="block mx-4 font-medium text-blue-600 hover:text-blue-900 transition duration-200">Home</a>
+                          
+                          <a href="{% url 'logout' %}" class="block font-medium text-blue-600 hover:text-blue-900 transition duration-200">Logout</a>
+                
+              
+                      </div>
+                  
+              </header>
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+                <div class="container mx-auto px-20 py-2">
+
+                  <br>
+
+                  <div id="content">
+                    {% if messages %}
+                    {% for message in messages %}
+                           
+                 
+                         
+                
+                            {%if "app" in message.tags %}
+                            <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                                <p class="font-bold">Informational message</p>
+                                    <p class="text-sm">{{ message }}</p>
+                            
+                        </div>
+                            {%endif%}
+                
+                            {%if "ref" in message.tags %}
+                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                    <strong class="font-bold">Warning!</strong>
+                                    <span class="block sm:inline">You've already applied for the offer! !</span>
+                                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                                    <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                                    </span>
+                                </div>
+                            {%endif%}
+                            {%if "refus" in message.tags %}
+                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                <strong class="font-bold">Warning!</strong>
+                                <span class="block sm:inline">your application was not accepted</span>
+                                <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                                <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                                </span>
+                            </div>
+                        {%endif%}
+                    {% endfor %}  
+                {% endif %}
+                    
+                  </div>
+
+                  <br>
+                 
+
+
+                    
+
+                   
+
+
+
+
+                    <br>
+
+                  <h3 class="text-blue-700 text-3xl font-medium">Details </h3>
+                
+                    
+                  
+
+
+                    <br>
+                  
+                    <br>
+                    
+
+                    <div class="mt-8">
+    
+                    </div>
+    
+                    <div class="flex flex-col mt-8">
+                        <div class="-my-2 py-2 overflow-x-auto sm:-mx-2 sm:px-2 lg:-mx-36 lg:px-2">
+                          <div class="bg-gray-100 mx-auto border-gray-500 border rounded-sm  text-gray-700 mb-0.5">
+                            <div class="flex p-3  border-l-8 border-green-600">
+                               <div class="space-y-1 border-r-2 pr-3">
+                                  <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> Start:</span> {{offer.start}}</div>
+                                  <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500 pr"> End:</span>  {{offer.end}}</div>
+                                  <div class="text-sm leading-5 font-semibold">{{offer.offerDate}}</div>
+                               </div>
+                              
+                               <div class="flex-1">
+                                  <div class="ml-3 space-y-1 border-r-2 pr-3">
+                                     <div class="text-base leading-6 font-normal">{{offer.type}}</div>
+                                     <div class="text-base leading-6 font-normal"> {{offer.title}}</div>
+
+                                     <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> category:</span>{{offer.category}}</div>
+                                     <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Skills:</span>{{offer.skills}}</div>
+                                     <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Context:</span> {{offer.context}}</div>
+                                  </div>
+                               </div>
+                               <div class="border-r-2 pr-3">
+                                  <div >
+                                     <div class="ml-3 my-3 border-gray-200 border-2 bg-gray-300 p-1">
+                                        <div class="uppercase text-xs leading-4 font-medium">Salary (DH):</div>
+                                        <div class="text-center text-sm leading-4 font-semibold text-gray-800">{{offer.salary}}</div>
+                                     </div>
+                                  </div>
+                               </div>
+                               <div>
+                                  <div class="ml-3 my-5 bg-green-600 p-1 w-20">
+                                     <div class="uppercase text-xs leading-4 font-semibold text-center text-green-100"> <a href="{% url 'create_offerC' offer.id %}">Postulate</a></div>
+                                  </div>
+                               </div>
+                              
+                            </div>
+                         </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endif %}

@@ -1,0 +1,218 @@
+{% if user.is_authenticated%}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://tailwindcomponents.com/css/component.dashboard-template.css" rel="stylesheet">
+</head>
+<body class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
+    <div>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    
+    <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
+        <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
+    
+        <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-black overflow-y-auto lg:-translate-x-6 lg:static lg:inset-0">
+            
+            
+    
+            <nav class="mt-10">
+                <a class="flex items-center mt-4 py-2 px-6 text-white hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="{% url 'adminProj' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                      </svg>
+            
+                    <span class="mx-3">Home</span>
+                </a>
+            
+                <a class="flex items-center mt-4 py-2 px-6 text-white hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+                    href="{% url 'notifications' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                      </svg>
+                    <span class="mx-3">Notifications ({{ notifications.count }}) </span>
+                </a>
+                <a class= "flex items-center mt-4 py-2 px-6 text-white hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+                href="{% url 'roomAdminOwner' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                <span class="mx-3">chat  </span>
+            </a>
+            <a class= "flex items-center mt-4 py-2 px-6 bg-gray-700 bg-opacity-25 text-white" 
+            href="{% url 'allrooms' %}">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+            </svg>
+            <span class="mx-3">Rooms  </span>
+            </a>
+            
+                <a class="flex items-center mt-4 py-2 px-6 text-white hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+                    href="{% url 'indexP' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    <span class="mx-3">Owners</span>
+                </a>
+            
+                <a class="flex items-center mt-4 py-2 px-6 text-white hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+                    href="{% url 'indexO' %}">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                        </path>
+                    </svg>
+            
+                    <span class="mx-3">Offers</span>
+                </a>
+                
+                
+                <a class="flex items-center mt-4 py-2 px-6 text-white hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+                    href="{% url 'indexC' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                      </svg>
+                    <span class="mx-3">Candidates</span>
+                </a>
+            
+                
+            
+                <a class="flex items-center mt-4 py-2 px-6 text-white hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+                    href="{% url 'indexT' %}">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z">
+                        </path>
+                    </svg>
+            
+                    <span class="mx-3">Teams</span>
+                </a>
+            
+                <a class="flex items-center mt-4 py-2 px-6 text-white hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+                href="{% url 'moderators' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                  </svg>
+                <span class="mx-3">Moderators</span>
+                </a>
+            
+             
+                
+            
+            </nav>
+            </div>
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <header class="flex justify-between items-center ml-0 py-4 px-10 bg-white border-b-4 border-blue-600">
+                <div class="flex items-center">
+                    <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
+                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             <path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </svg>
+                    </button>
+    
+                    <div class="relative mx-4 lg:mx-0">
+                       
+    
+                       
+                    </div>
+                </div>
+    
+                <div class="flex items-center">
+                    
+
+                    <div class="lg:w-2/5 inline-flex lg:justify-end ml-10 lg:ml-2">
+                        <a href="{% url 'logout' %}" class="bg-black hover:bg-black text-white ml-4 py-2 px-2 rounded-full">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </header>
+            <main class="flex-1 overflow-x-auto overflow-y-auto bg-gray-200">
+               <div class="container mx-auto px-20 py-2">
+
+                
+                 <h3 class="text-blue-700 text-3xl font-medium">Rooms </h3>
+                   
+
+                   
+
+                  
+   
+                   <div class="mt-8">
+   
+                   </div>
+   
+                   <div class="flex flex-col mt-8">
+                       <div class="-my-2 py-2 overflow-x-auto sm:-mx-2 sm:px-2 lg:-mx-36 lg:px-2">
+                           <div
+                               class="align-middle inline-block min-w-full shadow overflow-auto sm:rounded-lg border-b border-gray-200">
+                               <form method="get">
+                                 <h3 class="text-blue-700 text-2xl font-medium">{{myFilter.form}}</h3> 
+       
+                                 <button
+                                 data-modal-toggle="example"
+                                 data-modal-action="open"
+                                 class="bg-blue-200 font-semibold text-blue-500 p-2 w-32 rounded-full hover:bg-blue-200 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2"
+                                 type="submit"
+                                 >
+                         
+                                 Search</button> 
+       
+                                 
+                               </form>
+                         
+                             {% for i in R %}
+                             
+                               <!-- Start of component -->
+                               <div class="max-w-sm bg-white border-2 border-gray-300 p-6 rounded-md tracking-wide shadow-lg">
+                                  <div id="header" class="flex items-center mb-4"> 
+                                     <img alt="avatar" class="w-20 rounded-full border-2 border-gray-300" src="data:image/jpeg;base64,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" />
+                                     <div id="header-text" class="leading-5 ml-6 sm">
+                                        <h4 id="name" class="text-xl font-semibold">Offer : {{i.team.offerT}} </h4>
+                                        <h5 id="job" class="font-semibold text-blue-600">Room {{i.name}}</h5>
+                                     </div>
+                                  </div>
+                                  <div id="quote">
+                                     <q class="italic text-gray-600">
+                                       created : {{i.created}}
+                                       
+                                     </q>
+                                     <form id="post-form" method="POST" action="checkview">
+                                       {% csrf_token %}
+                                       
+                                       <input type="hidden" name="room_name" id="room_name" value="{{i.name}}" />
+                                       
+                                       <input type="hidden" name="username" id="username" value="{{user.name}}" />
+                                       
+                                       <button data-modal-toggle="example" data-modal-action="open" class="bg-blue-500 font-semibold text-white p-2 w-32 rounded-full hover:bg-blue-500 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2"
+                                           type="submit"
+                                           >
+                             
+                                     Enter room</button> 
+                                   </form>
+                                  </div>
+                               </div>
+                               <!-- End of component -->
+                           
+                            {% endfor %} 
+                               
+                           </div>
+                       </div>
+                   </div>
+
+                   
+               </div>
+           </main>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endif %}

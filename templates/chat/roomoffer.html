@@ -1,0 +1,20 @@
+<html lang="en">
+    <body >
+
+      Room
+      
+      
+      <form id="post-form" method="POST" action="checkviewAdmin">
+        {% csrf_token %}
+        
+        <input type="hidden" name="room_name" id="room_name" value="{{R.name}}" />
+        
+        <input type="hidden" name="username" id="username" value="{{user.name}}" />
+        <input type="submit" value="Enter Room">
+    </form>
+    
+
+    
+
+</body>
+     </html>

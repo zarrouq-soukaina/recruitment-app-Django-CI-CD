@@ -1,0 +1,262 @@
+{% if user.is_authenticated%}
+{% load hitcount_tags %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://tailwindcomponents.com/css/component.dashboard-template.css" rel="stylesheet">
+</head>
+<body class="h-screen overflow-auto flex items-center justify-center" style="background: #edf2f7;">
+
+  
+    <div>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    
+    <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
+        <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
+    
+        <div class="flex-1 flex flex-col overflow-auto">
+            <header class="flex justify-end items-end py-4 px-20 bg-white border-b-4 border-blue-600">
+              <div class="text-black font-medium text-2xl flex items-between">
+                <span class="w-6 h-6 rounded-full bg-blue-500 ml-4 mr-4"></span> MiFactory
+            </div>
+                    <div class="lg:w-screen inline-flex lg:justify-end mr-4 -ml-48 lg:-ml-48">
+
+                      
+
+                      <a href="{% url 'notifications' %}"  class="block mx-4 font-medium text-blue-600 hover:text-blue-900 transition duration-200">Notifications ({{ notifications.count }})</a>
+                        <a href="{% url 'projectOwner' %}" class="block mx-4 font-medium text-blue-600 hover:text-blue-900 transition duration-200">Home</a>
+                        <a href="{% url 'create_offer' %}" class="block mx-6 font-medium text-blue-600 hover:text-blue-900 transition duration-200">New offer</a>
+                        <a href="{% url 'logout' %}" class="block font-medium text-blue-600 hover:text-blue-900 transition duration-200">Logout</a>
+			  
+			
+                    </div>
+                
+            </header>
+            <main class="flex-1 overflow-x-auto overflow-y-auto bg-gray-200">
+                <div class="container mx-auto px-20 py-2">
+
+                  <br>
+                  <h3 class="text-blue-700 text-3xl font-medium">Offers</h3>
+                    
+
+                  <div id="content">
+
+                    </div>
+
+                    <br>
+                    <br>
+                    {% if messages %}
+    {% for message in messages %}
+           
+ 
+            {%if "offer" in message.tags %}
+                <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                        <p class="font-bold">Informational message</p>
+                            <p class="text-sm">{{ message }}</p>
+                    
+                </div>
+            {%endif%}
+
+            {%if "deactivate" in message.tags %}
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Warning!</strong>
+                    <span class="block sm:inline">'You have deactivated this offer and its team and room! !</span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                    </span>
+                </div>
+            {%endif%}
+
+            {%if "close" in message.tags %}
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Warning!</strong>
+                    <span class="block sm:inline">You have closed this offer !</span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                    </span>
+                </div>
+            {%endif%}
+    {% endfor %}  
+{% endif %}
+    
+                    <div class="mt-8">
+    
+                    </div>
+    
+                    <div class="flex flex-col mt-8">
+                        <div class="-my-2 py-2 overflow-x-auto sm:-mx-2 sm:px-2 lg:-mx-36 lg:px-2">
+                            <div
+                                class="align-middle inline-block min-w-full shadow overflow-auto sm:rounded-lg border-b border-gray-200">
+                                <h3 class="text-blue-700 text-3xl font-medium">the  most popular offers</h3>
+                                
+                                {% for i in popular_offers %}
+                                <div class="bg-gray-100 mx-auto border-gray-500 border rounded-sm  text-gray-700 mb-0.5">
+                                
+                                   <div class="flex p-3  border-l-8 border-blue-600">
+                                      <div class="space-y-1 border-r-2 pr-3">
+                                        <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> Views:</span>{% get_hit_count for i %}</div>
+                                         <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> Start:</span> {{i.start}}</div>
+                                         <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500 pr"> End:</span>  {{i.end}}</div>
+                                         <div class="text-sm leading-5 font-semibold">{{i.offerDate}}</div>
+                                      </div>
+                                      <div class="space-y-1 border-r-2 pr-3">
+                                        <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> close:</span> {{i.is_closed}}</div>
+                                        {% if i.descriptive %}
+                                        <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> <a href="{% url 'download' i.id %}" rel="external nofollow">  download </a></span> Descriptive</div>
+                                        {% else %}
+                                        <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> No file</span> </div>
+                                        {% endif %}
+                                     </div>
+                                      <div class="flex-1">
+                                         <div class="ml-3 space-y-1 border-r-2 pr-3">
+                                          <div class="text-base leading-6 font-normal">{{i.type}}</div>
+                                            <div class="text-base leading-6 font-normal">{{i.title}}</div>
+                                            
+                                            <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> category:</span>{{i.category}}</div>
+                                            <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Skills:</span>{{i.skills}}</div>
+                                            <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Context:</span> {{i.context}}</div>
+                                         </div>
+                                      </div>
+                                      <div class="border-r-2 pr-3">
+                                         <div >
+                                            <div class="ml-3 my-3 border-gray-200 border-2 bg-gray-300 p-1">
+                                               <div class="uppercase text-xs leading-4 font-medium">Salary (DH):</div>
+                                               <div class="text-center text-sm leading-4 font-semibold text-gray-800">{{i.salary}}</div>
+                                            </div>
+                                         </div>
+                                      </div>
+                                     
+                                      <div>
+                                          <div>
+                                            <a href="{% url 'offerview' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-10" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                                                </svg>
+                                              </button></a>
+                                          </div>
+                                          <div>
+                                              </div>
+                                              <a href="{% url 'update_offer' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                                </button></a>
+                                              <div> <a href="{% url 'offersCandidate' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-7" viewBox="0 0 20 20" fill="currentColor">
+                                                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                  </svg>
+                                                </button></a>
+                                              </div>
+                          
+                                              <div> <a href="{% url 'deactivate_offer' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z" />
+                                            </svg>
+                                            </button></a>
+                                              </div>
+                                              <a href="{% url 'close_offer' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-7" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd" />
+                                                </svg>
+                                                </button></a>
+                                              <div>
+                                              </div>
+                                      </div>
+                                   </div>
+                                </div>
+                                {% endfor %}
+                              <h3 class="text-blue-700 text-3xl font-medium">All the offers</h3>
+                                
+                              {% for i in offers %}
+
+                              <div class="bg-gray-100 mx-auto border-gray-500 border rounded-sm  text-gray-700 mb-0.5">
+                                 <div class="flex p-3  border-l-8 border-blue-600">
+                                    <div class="space-y-1 border-r-2 pr-3">
+                                      <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> Views:</span>{% get_hit_count for i %}</div>
+                                       <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> Start:</span> {{i.start}}</div>
+                                       <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500 pr"> End:</span>  {{i.end}}</div>
+                                       <div class="text-sm leading-5 font-semibold">{{i.offerDate}}</div>
+                                    </div>
+                                    <div class="space-y-1 border-r-2 pr-3">
+                                      <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> close:</span> {{i.is_closed}}</div>
+                                      {% if i.descriptive %}
+                                      <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> <a href="{% url 'download' i.id %}" rel="external nofollow">  download </a></span> Descriptive</div>
+                                      {% else %}
+                                      <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> No file</span> </div>
+                                      {% endif %}
+                                   </div>
+                                    <div class="flex-1">
+                                       <div class="ml-3 space-y-1 border-r-2 pr-3">
+                                        <div class="text-base leading-6 font-normal">{{i.type}}</div>
+                                          <div class="text-base leading-6 font-normal">{{i.title}}</div>
+                                          
+                                          <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> category:</span>{{i.category}}</div>
+                                          <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Skills:</span>{{i.skills}}</div>
+                                          <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Context:</span> {{i.context}}</div>
+                                       </div>
+                                    </div>
+                                    <div class="border-r-2 pr-3">
+                                       <div >
+                                          <div class="ml-3 my-3 border-gray-200 border-2 bg-gray-300 p-1">
+                                             <div class="uppercase text-xs leading-4 font-medium">Salary (DH):</div>
+                                             <div class="text-center text-sm leading-4 font-semibold text-gray-800">{{i.salary}}</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                   
+                                    <div>
+                                        <div>
+                                          <a href="{% url 'offerview' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-10" viewBox="0 0 20 20" fill="currentColor">
+                                              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                              <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                                              </svg>
+                                            </button></a>
+                                        </div>
+                                        <div>
+                                            </div>
+                                            <a href="{% url 'update_offer' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                              </svg>
+                                              </button></a>
+                                            <div> <a href="{% url 'offersCandidate' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-7" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                </svg>
+                                              </button></a>
+                                            </div>
+                        
+                                            <div> <a href="{% url 'deactivate_offer' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z" />
+                                          </svg>
+                                          </button></a>
+                                            </div>
+                                            <a href="{% url 'close_offer' i.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-7" viewBox="0 0 20 20" fill="currentColor">
+                                              <path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd" />
+                                              </svg>
+                                              </button></a>
+                                            <div>
+                                            </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              {% endfor %}
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endif %}

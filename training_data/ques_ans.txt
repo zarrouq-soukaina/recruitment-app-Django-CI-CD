@@ -1,0 +1,46 @@
+Hello
+Hello
+Hi
+Hello
+hey
+Hello
+How are you ?
+I'm doing great. How can i help you ?
+Who are you ?
+I am an English Bot who will help get more information about our website . So how can i help you? (In case , i couldn't help you , please visit this website https://mifactory.ma/ .)
+What is this website about ?
+It's a website where andidates apply for offers made by project owners. 
+What is this website ?
+It's a website where andidates apply for offers made by project owners. 
+What's this website about ?
+It's a website where andidates apply for offers made by project owners. 
+Thank you
+You're welcome !
+Where can I find more information ?
+For more information visit this website : https://mifactory.ma/ .
+More information ?
+For more information visit this website : https://mifactory.ma/ .
+team
+You can chat with many candidates , be within many teams or talk directly to one of our admins.
+offer
+You can apply easily for intersting offers in different fields at the same time.
+apply
+If your're accepted in the selection, you'll be added to a team whom tou can chat with easily.
+room
+You can enter many rooms to talk with several teams only if you're accepted.
+chat
+You can enter many rooms to talk with several teams only if you're accepted.
+Team
+You can chat with many candidates , be within many teams or talk directly to one of our admins.
+Offer
+You can apply easily for intersting offers in different fields at the same time.
+Apply
+If your're accepted in the selection, you'll be added to a team whom tou can chat with easily.
+Application
+If your're accepted in the selection, you'll be added to a team whom tou can chat with easily.
+application
+If your're accepted in the selection, you'll be added to a team whom tou can chat with easily.
+Room
+You can enter many rooms to talk with several teams only if you're accepted.
+Chat
+You can enter many rooms to talk with several teams only if you're accepted.

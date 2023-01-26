@@ -1,0 +1,88 @@
+                      
+                      
+                      <html lang="en">
+                        <head>
+                          <meta charset="utf-8">
+                          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                          <meta name="viewport" content="width=device-width, initial-scale=1">
+                          <link href="https://tailwindcomponents.com/css/component.dashboard-template.css" rel="stylesheet">
+                        </head>
+                        <body class="h-screen overflow-auto flex  justify-center " style="background: #edf2f7;">
+                         
+
+                          
+                          <div class="card card-body">
+
+                            
+                         
+                          
+                          <form id="post-form" method="POST" action="checkviewAdmin">
+                            {% csrf_token %}
+                            
+                            <input type="hidden" name="room_name" id="room_name" value="{{RA.name}}" />
+                            
+                            <input type="hidden" name="username" id="username" value="{{user.name}}" />
+                            
+                            
+                            <button data-modal-toggle="example" data-modal-action="open" class="bg-blue-500 font-semibold text-white p-2 w-32 rounded-full hover:bg-blue-500 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2"
+                                    type="submit"
+                                    >
+                
+                      click here to contact the Admin</button> 
+                        
+                        </form>
+
+                        <form method="get">
+                          <h3 class="text-blue-700 text-2xl font-medium">{{myFilter.form}}</h3> 
+
+                          <button
+                          data-modal-toggle="example"
+                          data-modal-action="open"
+                          class="bg-blue-200 font-semibold text-blue-500 p-2 w-32 rounded-full hover:bg-blue-200 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2"
+                          type="submit"
+                          >
+                  
+                          Search</button> 
+
+                          
+                        </form>
+                  
+                      {% for i in R %}
+                      
+                        <!-- Start of component -->
+                        <div class="max-w-sm bg-white border-2 border-gray-300 p-6 rounded-md tracking-wide shadow-lg">
+                           <div id="header" class="flex items-center mb-4"> 
+                              <img alt="avatar" class="w-20 rounded-full border-2 border-gray-300" src="data:image/jpeg;base64,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" />
+                              <div id="header-text" class="leading-5 ml-6 sm">
+                                 <h4 id="name" class="text-xl font-semibold">Offer : {{i.team.offerT}} </h4>
+                                 <h5 id="job" class="font-semibold text-blue-600">Room {{i.name}}</h5>
+                              </div>
+                           </div>
+                           <div id="quote">
+                              <q class="italic text-gray-600">
+                                created : {{i.created}}
+                                
+                              </q>
+                              <form id="post-form" method="POST" action="checkview">
+                                {% csrf_token %}
+                                
+                                <input type="hidden" name="room_name" id="room_name" value="{{i.name}}" />
+                                
+                                <input type="hidden" name="username" id="username" value="{{user.name}}" />
+                                
+                                <button data-modal-toggle="example" data-modal-action="open" class="bg-blue-500 font-semibold text-white p-2 w-32 rounded-full hover:bg-blue-500 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2"
+                                    type="submit"
+                                    >
+                      
+                              Enter room</button> 
+                            </form>
+                           </div>
+                        </div>
+                        <!-- End of component -->
+                    
+                     {% endfor %} 
+                        
+                       
+
+</body>
+                         </html>

@@ -1,0 +1,242 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body style="background: #edf2f7;">
+    <header class="flex justify-end items-end py-4 px-20 bg-white border-b-4 border-blue-600">
+        <div class="text-black font-medium text-2xl flex items-between">
+          <span class="w-6 h-6 rounded-full bg-blue-500 ml-4 mr-4"></span> MiFactory
+      </div>
+              <div class="lg:w-screen inline-flex lg:justify-end mr-4 -ml-48 lg:-ml-48">
+
+                
+
+                <a href="{% url 'notifications' %}"  class="block mx-4 font-medium text-blue-600 hover:text-blue-900 transition duration-200">Notifications ({{ notifications.count }})</a>
+                 
+                  <a href="{% url 'logout' %}" class="block font-medium text-blue-600 hover:text-blue-900 transition duration-200">Logout</a>
+        
+      
+              </div>
+          
+      </header>
+    
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+    
+    <div class="grid grid-cols-1 gap-2 justify-center items-center">
+	
+
+	
+    {% if not notifications %}
+    
+    <div
+		class='flex items-center text-white max-w-sm w-full bg-yellow-400 shadow-md rounded-lg overflow-hidden mx-auto'>
+		<div class='w-10 border-r px-2'>
+			🔔
+		</div>
+
+		<div class='flex items-center px-2 py-3'>
+
+
+			<div class='mx-3'>
+				<p> No notifications yet !</p>
+			</div>
+		</div>
+	</div>
+    {% endif %}
+
+
+    {% for notification in notifications %}
+        <div class="notification">
+            <p>
+                {% if notification.notification_type == 'message' %}
+                <div class='flex items-center text-white max-w-sm w-full bg-green-400 shadow-md rounded-lg overflow-hidden mx-auto'>
+                    <div class='w-10 border-r px-2'>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                            </path>
+                        </svg>
+                    </div>
+            
+                    <div class='flex items-center px-2 py-3'>
+            
+            
+                        <div class='mx-3'>
+                            <p><a href="{% url 'notifications' %}?goto=view_application&notification={{ notification.id }}&extra_id={{ notification.extra_id }}">
+                        <strong>{{ notification.created_by.name }}</strong> sent you a message<br>
+                        <small>{{ notification.created_at|timesince }} ago</small>
+                    </a></p>
+                        </div>
+                    </div>
+                </div>
+                    
+                {% elif notification.notification_type == 'application' %}
+                <div class='flex items-center text-white max-w-sm w-full bg-green-400 shadow-md rounded-lg overflow-hidden mx-auto'>
+                    <div class='w-10 border-r px-2'>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                            </path>
+                        </svg>
+                    </div>
+            
+                    <div class='flex items-center px-2 py-3'>
+                        <div class='mx-3'>
+                            <p><a href="{% url 'notifications' %}?goto=offersCandidate&notification={{ notification.id }}&extra_id={{ notification.extra_id }}">
+                       a new person applied for your offer <br>
+                        <small>{{ notification.created_at|timesince }} ago</small>
+                    </a></p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+
+                {% if notification.notification_type == 'accept' %}
+                <div class='flex items-center text-white max-w-sm w-full bg-green-400 shadow-md rounded-lg overflow-hidden mx-auto'>
+                    <div class='w-10 border-r px-2'>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                            </path>
+                        </svg>
+                    </div>
+            
+                    <div class='flex items-center px-2 py-3'>
+                        <div class='mx-3'>
+                            <p><a href="{% url 'notifications' %}?goto=teamsCandidate&notification={{ notification.id }}">
+                                congratulations, your application is accepted <br> 
+                        <small>{{ notification.created_at|timesince }} ago</small>
+                    </a></p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if notification.notification_type == 'NewOffer' %}
+                <div class='flex items-center text-white max-w-sm w-full bg-green-400 shadow-md rounded-lg overflow-hidden mx-auto'>
+                    <div class='w-10 border-r px-2'>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                            </path>
+                        </svg>
+                    </div>
+            
+                    <div class='flex items-center px-2 py-3'>
+                        <div class='mx-3'>
+                            <p><a href="{% url 'notifications' %}?goto=offerview&notification={{ notification.id }}&extra_id={{ notification.extra_id }}">
+                        <strong>{{ notification.created_by.name }}</strong> added a new offer, click here to view the details<br>
+                        <small>{{ notification.created_at|timesince }} ago</small>
+                    </a></p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if notification.notification_type == 'Deactivate' %}
+                <div class='flex items-center text-white max-w-sm w-full bg-green-400 shadow-md rounded-lg overflow-hidden mx-auto'>
+                    <div class='w-10 border-r px-2'>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                            </path>
+                        </svg>
+                    </div>
+            
+                    <div class='flex items-center px-2 py-3'>
+                        <div class='mx-3'>
+                            <p><a href="{% url 'notifications' %}?goto=offers&notification={{ notification.id }}">
+                         The admin has deactivated you offer {{offer.title}}<br>
+                        <small>{{ notification.created_at|timesince }} ago</small>
+                    </a></p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if notification.notification_type == 'Close' %}
+                <div class='flex items-center text-white max-w-sm w-full bg-green-400 shadow-md rounded-lg overflow-hidden mx-auto'>
+                    <div class='w-10 border-r px-2'>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                            </path>
+                        </svg>
+                    </div>
+            
+                    <div class='flex items-center px-2 py-3'>
+                        <div class='mx-3'>
+                            <p><a href="{% url 'notifications' %}?goto=offerview&notification={{ notification.id }}&extra_id={{ notification.extra_id }}">
+                                The admin has closed you offer {{offer.title}}<br>
+                        <small>{{ notification.created_at|timesince }} ago</small>
+                    </a></p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if notification.notification_type == 'inscription' %}
+                <div class='flex items-center text-white max-w-sm w-full bg-green-400 shadow-md rounded-lg overflow-hidden mx-auto'>
+                    <div class='w-10 border-r px-2'>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                            </path>
+                        </svg>
+                    </div>
+            
+                    <div class='flex items-center px-2 py-3'>
+                        <div class='mx-3'>
+                            <p><a href="{% url 'notifications' %}?goto=offers&notification={{ notification.id }}">
+                         The admin has deactivated you offer {{offer.title}}<br>
+                        <small>{{ notification.created_at|timesince }} ago</small>
+                    </a></p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if notification.notification_type == 'refus' %}
+                <div class='flex items-center text-white max-w-sm w-full bg-green-400 shadow-md rounded-lg overflow-hidden mx-auto'>
+                    <div class='w-10 border-r px-2'>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                            </path>
+                        </svg>
+                    </div>
+            
+                    <div class='flex items-center px-2 py-3'>
+                        <div class='mx-3'>
+                            <p><a href="{% url 'notifications' %}?goto=offerviewC&notification={{ notification.id }}&extra_id={{ notification.extra_id }}">
+                                sorry to let you know that your application wasn't suitable for our requirements.Good luck with the other opportunities !<br>
+                        <small>{{ notification.created_at|timesince }} ago</small>
+                    </a></p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+
+            </p>
+        </div>
+    {% endfor %}
+
+
+</div>
+</body>
+</html>

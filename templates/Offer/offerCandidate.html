@@ -1,0 +1,103 @@
+{% if user.is_authenticated%}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://tailwindcomponents.com/css/component.dashboard-template.css" rel="stylesheet">
+</head>
+<body class="h-screen overflow-auto flex items-center justify-center" style="background: #edf2f7;">
+
+  
+    <div>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    
+    <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
+        <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden"></div>
+    
+        <div class="flex-1 flex flex-col overflow-auto">
+           
+            <header class="flex justify-end items-end py-4 px-20 bg-white border-b-4 border-blue-600">
+              <div class="text-black font-medium text-2xl flex items-between">
+                <span class="w-6 h-6 rounded-full bg-blue-500 ml-4 mr-4"></span> MiFactory
+            </div>
+                    <div class="lg:w-screen inline-flex lg:justify-end mr-4 -ml-48 lg:-ml-48">
+
+                      
+
+                      
+                      <a href="{% url 'projectOwner' %}" class="block mx-4 font-medium text-blue-600 hover:text-blue-900 transition duration-200">Home</a>
+                      <a href="{% url 'create_offer' %}" class="block mx-6 font-medium text-blue-600 hover:text-blue-900 transition duration-200">New offer</a>
+                      <a href="{% url 'logout' %}" class="block font-medium text-blue-600 hover:text-blue-900 transition duration-200">Logout</a>
+      
+			
+                    </div>
+                
+            </header>
+            <main class="flex-1 overflow-x-auto overflow-y-auto bg-gray-200">
+                <div class="container mx-auto px-20 py-2">
+
+                  <br>
+                  <h3 class="text-blue-700 text-3xl font-medium">Interested candidates  :</h3>
+                  <h3 class="text-black-700 text-3xl font-medium">offer : {{offer.title}}</h3>
+
+                   
+
+                    <br>
+    
+                    <div class="mt-8">
+    
+                    </div>
+    
+                    <div class="flex flex-col mt-8">
+                      <div class="-my-2 py-2 overflow-x-auto sm:-mx-2 sm:px-2 lg:-mx-36 lg:px-2">
+                           {% for i in cands %} 
+                          <div class="bg-gray-100 mx-auto border-gray-500 border rounded-sm  text-gray-700 mb-0.5">
+                             <div class="flex p-3  border-l-8 border-blue-600">
+                                <div class="space-y-1 border-r-2 pr-3">
+                                   <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500"> School level:</span> {{i.schoolLevel }}</div>
+                                   
+                                   <div class="text-sm leading-5 font-semibold"><span class="text-xs leading-4 font-normal text-gray-500 pr"> interest:</span>  {{i.interest}}</div>
+                                   
+                                </div>
+                                
+                                <div class="flex-1">
+                                   <div class="ml-3 space-y-1 border-r-2 pr-3">
+                                      
+                                      <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> experience:</span>{{i.experience}}</div>
+                                      <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Skills:</span>{{i.skills}}</div>
+                                      <div class="text-sm leading-4 font-normal"><span class="text-xs leading-4 font-normal text-gray-500"> Educational_background:</span>{{i.educ_background}}</div>
+                                   </div>
+                                </div>
+                                
+                                <div>
+                                   
+                                      <a href="{% url 'accepter' i.user.id offer.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                          </svg>
+                                          </button></a>
+                                          <a href="{% url 'Reject' i.user.id offer.id %}"><button class="flex items-center text-sm font-semibold text-gray-500 hover:text-indigo-600 transition duration-200" type="submit">
+                                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                                </svg>
+                                              </button></a>
+                                  
+                  
+                                 </div>
+                               
+                             </div>
+                          </div>
+                          {% endfor %}
+                      </div>
+                  </div>
+                    
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endif %}
