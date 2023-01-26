@@ -1,6 +1,6 @@
 name: Django Github Action
 
-on: [push]
+on: push
 
 jobs:
   build:
