@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from . import storage
+
 import random
 from django.contrib.contenttypes.models import ContentType
 from django.views import generic
@@ -60,10 +60,6 @@ class CustomUser(AbstractUser):
         
         return f' {self.name}  '
     
-    
-     
-     
-
 
 class Admin (models.Model):
     user = models.OneToOneField(CustomUser, on_delete = models.CASCADE, primary_key = True)
