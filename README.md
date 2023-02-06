@@ -31,6 +31,8 @@ add superuser :
 - python manage.py runserver
 
 # Screens :
+#### UML class diagram:
+<img src="pics/UML.PNG" alt="Alt text" title="Optional title">
 
 #### the chatbot:
 <img src="pics/chatbot.PNG" alt="Alt text" title="Optional title">
