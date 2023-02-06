@@ -31,15 +31,43 @@ add superuser :
 - python manage.py runserver
 
 # Screens :
-#### the home page of the project owner :
 
-#### Offers details :
 #### the chatbot:
 <img src="pics/chatbot.PNG" alt="Alt text" title="Optional title">
+
 #### the recommandation system:
+<img src="pics/recommandations.PNG" alt="Alt text" title="Optional title">
+
+#### the home page of the project owner :
+<img src="pics/projectowner.PNG" alt="Alt text" title="Optional title">
+
+#### Offers details :
+* list of les 5 most seen offers + list of all the offers created by this project owner:
+
+<img src="pics/offer.PNG" alt="Alt text" title="Optional title">
+
 #### candidate page :
-#### list of appliceant :
+
+<img src="pics/offercandi.PNG" alt="Alt text" title="Optional title">
+
+#### list of the applicants:
+
+<img src="pics/interested.PNG" alt="Alt text" title="Optional title">
+
 #### notifications :
+
+<img src="pics/notifications.PNG" alt="Alt text" title="Optional title">
+
 #### Real time chat :
+
+* team chat :
+<img src="pics/teamchat.PNG" alt="Alt text" title="Optional title">
+
+#### the admin dashboard :
+
+<img src="pics/admin.PNG" alt="Alt text" title="Optional title">
+
+#### Teams:
+<img src="pics/teams.PNG" alt="Alt text" title="Optional title">
 
 
