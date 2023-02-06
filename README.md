@@ -2,9 +2,10 @@
 
 -Architected & built a web application to get project owners in contact with candidates.
 This app contains :
-* A recommendation system using user collaborative filtering based on the algorithm K nearest neighbors (KNN).
-* An AI chatbot (conversational robot) based on the Naive Bayes classifier.
-* A real time chat.
+* 4 types of users : admin, modirator, candidate and project owner 
+* A recommendation system using User-Based Collaborative Filtering : a technique used to predict the items that a user might like on the basis of ratings given to that item by other users who have similar taste with that of the target user.
+* An AI chatbot (conversational robot) using Chatterbot: a machine-learning based conversational dialog engine build in Python which makes it possible to generate responses based on collections of known conversations. 
+* A real time chat and notifications.
 
 # Tools:
 - UML
@@ -16,14 +17,14 @@ This app contains :
 - HTML/CSS/JS
 
 # Steps:
-windows
+## windows
 - python -m venv venv
 - venv\Scripts\activate
 - pip install -r requirements.txt
 *database : (the used SGBD is postgresql "Pgadmin4" . the details of the database "name, port, password .." are in the file settings) 
 - python manage.py makemigrations main
 - python manage.py migrate
-*add superuser : 
+add superuser : 
 - python manage.py createsuperuser
 - python manage.py runserver
 
