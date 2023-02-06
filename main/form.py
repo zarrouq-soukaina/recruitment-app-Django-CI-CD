@@ -2,11 +2,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.db import transaction
 from django.forms.models import ModelForm
-from .models import *
+from .models import Moderator,Admin,Candidate,ProjectOwner,Offer,offerCandidate
 from django.forms.widgets import NumberInput 
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
-
 
 class ModeratorSignUpForm(UserCreationForm):
     
@@ -111,17 +109,17 @@ class CandidateSignUpForm(UserCreationForm):
 class ProjectOwnerSignUpForm(UserCreationForm):
    
     CHOICES_f = [
-    ('Business', 'Business'),
-    ('Engineering', 'Engineering'),
-    ('Management', 'Management'),
-    ('Marketing', 'Marketing'),
-    ('Data science', 'Data science'),
-    ('Electronics', 'Electronics'),
-    ('Robotics', 'Robotics'),
-    ('Administration', 'Administration'),
-    ('Industry', 'Industry'),
-    ('Design', 'Design'),
-    ('Software', 'Software'),
+        ('Business', 'Business'),
+        ('Engineering', 'Engineering'),
+        ('Management', 'Management'),
+        ('Marketing', 'Marketing'),
+        ('Data science', 'Data science'),
+        ('Electronics', 'Electronics'),
+        ('Robotics', 'Robotics'),
+        ('Administration', 'Administration'),
+        ('Industry', 'Industry'),
+        ('Design', 'Design'),
+        ('Software', 'Software'),
     ]
 
     name = forms.CharField(required=True)
@@ -153,8 +151,8 @@ class ProjectOwnerSignUpForm(UserCreationForm):
     
 
 class OfferForm(ModelForm):
-    start  = forms.DateField(widget=NumberInput(attrs={'type': 'date'}))
-    end  = forms.DateField(widget=NumberInput(attrs={'type': 'date'}), required=False)
+    start = forms.DateField(widget=NumberInput(attrs={'type': 'date'}))
+    end = forms.DateField(widget=NumberInput(attrs={'type': 'date'}), required=False)
     location = forms.CharField(required=False)
 
    
@@ -163,17 +161,17 @@ class OfferForm(ModelForm):
         fields = ['context', 'title', 'type','skills' , 'category','mode','start', 'end','location','salary','descriptive'] 
         
     CHOICES_f = [
-    ('Business', 'Business'),
-    ('Engineering', 'Engineering'),
-    ('Management', 'Management'),
-    ('Marketing', 'Marketing'),
-    ('Data science', 'Data science'),
-    ('Electronics', 'Electronics'),
-    ('Robotics', 'Robotics'),
-    ('Administration', 'Administration'),
-    ('Industry', 'Industry'),
-    ('Design', 'Design'),
-    ('Software', 'Software'),
+        ('Business', 'Business'),
+        ('Engineering', 'Engineering'),
+        ('Management', 'Management'),
+        ('Marketing', 'Marketing'),
+        ('Data science', 'Data science'),
+        ('Electronics', 'Electronics'),
+        ('Robotics', 'Robotics'),
+        ('Administration', 'Administration'),
+        ('Industry', 'Industry'),
+        ('Design', 'Design'),
+        ('Software', 'Software'),
     ]
     category= forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=CHOICES_f)
         

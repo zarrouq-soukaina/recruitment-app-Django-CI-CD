@@ -1,15 +1,11 @@
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
 import random
-from django.contrib.contenttypes.models import ContentType
-from django.views import generic
 from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
-from hitcount.models import HitCountMixin
+
 
 class CustomUserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
@@ -53,7 +49,7 @@ class CustomUser(AbstractUser):
     is_Candidate = models.BooleanField(default=False)
     is_ProjectOwner = models.BooleanField(default=False)
     name = models.CharField(max_length=40,null=True)
-    phone =  models.IntegerField(null=True)
+    phone = models.IntegerField(null=True)
     status_U = models.CharField(max_length=20,null=True)
     
     def __str__(self):
@@ -85,7 +81,7 @@ class Candidate (models.Model):
     experience = models.CharField(max_length=100, null=True)
     interest = models.CharField(max_length=100, null=True)
     educ_background = models.CharField(max_length=100, null=True)
-    schoolLevel  = models.CharField(max_length=30, null=True)
+    schoolLevel = models.CharField(max_length=30, null=True)
     age = models.IntegerField(null=True)
     
     def __str__(self):
@@ -96,11 +92,9 @@ class Candidate (models.Model):
 
 class ProjectOwner (models.Model):
     user = models.OneToOneField(CustomUser, on_delete = models.CASCADE, primary_key = True)
-    #field_P =  models.CharField(max_length=80, null=True)
+    
     def __str__(self):
-        return f' {self.user.name}  '
-
-#class category(models.Model):
+        return f' {self.user.name}'
      
 class Offer(models.Model, HitCountMixin):
    
@@ -113,23 +107,23 @@ class Offer(models.Model, HitCountMixin):
                    
                     ]
     CHOICES_f = [
-    ('Business', 'Business'),
-    ('Engineering', 'Engineering'),
-    ('Management', 'Management'),
-    ('Marketing', 'Marketing'),
-    ('Data science', 'Data science'),
-    ('Electronics', 'Electronics'),
-    ('Robotics', 'Robotics'),
-    ('Administration', 'Administration'),
-    ('Industry', 'Industry'),
-    ('Design', 'Design'),
-    ('Software', 'Software'),
+        ('Business', 'Business'),
+        ('Engineering', 'Engineering'),
+        ('Management', 'Management'),
+        ('Marketing', 'Marketing'),
+        ('Data science', 'Data science'),
+        ('Electronics', 'Electronics'),
+        ('Robotics', 'Robotics'),
+        ('Administration', 'Administration'),
+        ('Industry', 'Industry'),
+        ('Design', 'Design'),
+        ('Software', 'Software'),
     ]
-    t_CHOICES = [('internship','internship'),
-                    ('Pre-employment training','Pre-employment training'),
-                    ('job','job'),
-                   
-                    ]
+    t_CHOICES = [
+        ('internship','internship'),
+        ('Pre-employment training','Pre-employment training'),
+        ('job','job'),
+    ]
      
     mode = models.CharField(max_length=20,choices= mode_CHOICES, null=True)
     type = models.CharField(max_length=40,choices= t_CHOICES, null=True)
@@ -141,18 +135,19 @@ class Offer(models.Model, HitCountMixin):
     owner = models.ForeignKey(ProjectOwner, on_delete=models.CASCADE)
     #nmbreInterested=models.IntegerField(default=0, blank=True, null=True)
     #duration = models.CharField(max_length=10, null=True)
-    salary = models.IntegerField( blank=True)
+    salary = models.IntegerField(blank=True)
     is_closed = models.BooleanField(default=False)
     location = models.CharField(max_length=300,null=True)  
     title= models.CharField(max_length=50, null=True)  
     skills = models.CharField(max_length=50, null=True)
-    start =  models.DateField(max_length=30, null=True)
-    end =  models.DateField(max_length=30, null=True)
+    start = models.DateField(max_length=30, null=True)
+    end = models.DateField(max_length=30, null=True)
     descriptive=models.FileField(upload_to='./', null=True)
     paid = models.CharField(max_length=20,choices= paid_CHOICES, null=True)
 
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
      related_query_name='hit_count_generic_relation')
+
     def __str__(self):
         return f'  {self.title} '
     
@@ -161,38 +156,27 @@ class Myrating(models.Model):
     offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
     
-    
-
+class offerCandidate (models.Model):
+    statusOC =models.CharField(default='active',max_length=20)
+    ofr = models.ForeignKey(Offer, on_delete=models.CASCADE)
+    cand =models.ManyToManyField(Candidate) 
   
-class  offerCandidate (models.Model):
-  statusOC =models.CharField(default='active',max_length=20)
-  ofr = models.ForeignKey(Offer, on_delete=models.CASCADE)
-  cand =models.ManyToManyField(Candidate) 
+class RejectedCandidates (models.Model):
+    status =models.CharField(default='active',max_length=20)
+    ofr = models.ForeignKey(Offer, on_delete=models.CASCADE)
+    cand =models.ManyToManyField(Candidate) 
   
- 
-  
-class  RejectedCandidates (models.Model):
-  status =models.CharField(default='active',max_length=20)
-  ofr = models.ForeignKey(Offer, on_delete=models.CASCADE)
-  cand =models.ManyToManyField(Candidate) 
-  
-  
-
-  
-class  Team (models.Model):
+class Team (models.Model):
     numb = models.IntegerField(default=0, blank=True, null=True)
     status_T = models.CharField(default='active',max_length=20)
     cand =models.ManyToManyField(Candidate) 
     offerT = models.ForeignKey(Offer,on_delete=models.CASCADE)
     owner = models.ForeignKey(ProjectOwner, on_delete=models.CASCADE, null=True)
+    
     def __str__(self):
         
         return f' {self.offerT}  '
     
-
-
-
-
 #Notification
 
 class Notification(models.Model):
@@ -235,41 +219,27 @@ def random_string():
 #Room
 class Room(models.Model):
     name = models.CharField(max_length=64,default = random_string)
-    
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    
     members = models.ManyToManyField(CustomUser, blank=True)
     created = models.DateTimeField(default=datetime.now, blank=True)
     status = models.CharField(default='active',max_length=20)
     
-    
-
-
-
 class Message(models.Model):
-    
-    
-    
     room = models.ForeignKey(Room, on_delete = models.CASCADE, null = True)
     value = models.CharField(max_length=5000,null = True) 
-    
     date = models.DateTimeField(default=datetime.now, blank=True)
     user = models.CharField(max_length=1000000, null = True)
 #chat admin
 
 class RoomAdmin(models.Model):
     name = models.CharField(max_length=64,default = random_string)
-    
     admins = models.ManyToManyField(Admin, blank=True)
-    
-    member = models.ForeignKey(CustomUser, on_delete = models.CASCADE, null = True )
+    member = models.ForeignKey(CustomUser, on_delete = models.CASCADE, null = True)
     
 #message with admin 
 class MessageAdmin(models.Model):
-
     room = models.ForeignKey(RoomAdmin, on_delete = models.CASCADE, null = True)
     value = models.CharField(max_length=5000,null = True) 
-    
     date = models.DateTimeField(default=datetime.now, blank=True)
     user = models.CharField(max_length=1000000, null = True)
     

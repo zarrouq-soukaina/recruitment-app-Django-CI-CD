@@ -6,6 +6,8 @@ This app contains :
 * A recommendation system using User-Based Collaborative Filtering : a technique used to predict the items that a user might like on the basis of ratings given to that item by other users who have similar taste with that of the target user.
 * An AI chatbot (conversational robot) using Chatterbot: a machine-learning based conversational dialog engine build in Python which makes it possible to generate responses based on collections of known conversations. 
 * A real time chat and notifications.
+* Offers managment (activate/ deactivate offers, update offers, add new offer, show the most popular offers (based on django-hitcount)
+
 
 # Tools:
 - UML
@@ -27,4 +29,17 @@ This app contains :
 add superuser : 
 - python manage.py createsuperuser
 - python manage.py runserver
+
+# Screens :
+#### the home page of the project owner :
+
+#### Offers details :
+#### the chatbot:
+<img src="pics/chatbot.PNG" alt="Alt text" title="Optional title">
+#### the recommandation system:
+#### candidate page :
+#### list of appliceant :
+#### notifications :
+#### Real time chat :
+
 
